@@ -1,0 +1,5 @@
+<p>
+  home-page works!
+</p>
+<app-login *ngIf="!userService.user"></app-login>
+<app-food-records *ngIf="userService.user"></app-food-records>

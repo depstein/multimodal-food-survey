@@ -1,0 +1,13 @@
+<form #loginForm="ngForm" (ngSubmit)="logIn(loginForm)">
+	<div class="row">
+		<div class="col-12 label">
+			Please log in with the User ID the research team gave you.
+		</div>
+		<div class="col-12">
+			<input type="text" name="user" class="form-control" [(ngModel)]=user [ngClass]=userValid>
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Log In</button>
+		</div>
+	</div>
+</form>
