@@ -1,0 +1,4 @@
+/*Card insists on single-column, which this layout breaks*/
+app-food-record {
+	flex-direction: row;
+}

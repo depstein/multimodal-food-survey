@@ -17,6 +17,7 @@ import { DescriptionEntryComponent } from './description-entry/description-entry
 import { RecipeEntryComponent } from './recipe-entry/recipe-entry.component';
 import { DatabaseEntryComponent } from './database-entry/database-entry.component';
 import { VoiceEntryComponent } from './voice-entry/voice-entry.component';
+import { FoodRecordComponent } from './food-record/food-record.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { VoiceEntryComponent } from './voice-entry/voice-entry.component';
     DescriptionEntryComponent,
     RecipeEntryComponent,
     DatabaseEntryComponent,
-    VoiceEntryComponent
+    VoiceEntryComponent,
+    FoodRecordComponent
   ],
   imports: [
     BrowserModule,

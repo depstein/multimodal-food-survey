@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Context } from './context';
 import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +50,13 @@ export class FirebaseService {
     if(!this.loggedIn) {
       return undefined;
     } else {
-      return this.allEntries.valueChanges();
+      //Using snapshotChanges() to be able to get the id.
+      //https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#snapshotchanges
+      return this.allEntries.snapshotChanges().pipe(map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const docId = a.payload.doc.id;
+        return {docId, ...data};
+      })));
     }
   }
 
@@ -56,12 +64,22 @@ export class FirebaseService {
     if(!this.loggedIn) {
       return undefined;
     } else {
-      return this.missingEntries.valueChanges();
+      //Using snapshotChanges() to be able to get the id.
+      //https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#snapshotchanges
+      return this.missingEntries.snapshotChanges().pipe(map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const docId = a.payload.doc.id;
+        return {docId, ...data};
+      })));
     }
   }
 
   getImage(path:string):Observable<string | null> {
     let ref = this.storage.ref(this.user + '/' + path);
     return ref.getDownloadURL();
+  }
+
+  setContext(context:Context, docId:string) {
+    this.db.doc(this.user + '/' + docId).update({'context':context.getData(), 'contextLogged':true});
   }
 }
