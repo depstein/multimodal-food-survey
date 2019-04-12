@@ -1,18 +1,23 @@
 <p>
   Welcome, {{userService.user}}!
 </p>
-<ul>
-	<li *ngFor="let record of records | async">
-		<p>
-			{{record.date.toDate()}}
-			{{record.platform}}
-		</p>
-		<ul>
-			<li *ngFor="let entry of record.entries">
-				{{entry.entry}}
-				{{entry.modality}}
-			</li>
-		</ul>
-	</li>
-</ul>
+<div class="row card" *ngFor="let record of records | async">
+	<div class="card-header">
+		{{record.date.toDate()}}
+		{{record.platform}}
+	</div>
+	<ul class="list-group list-group-flush col-6">
+		<li class="list-group-item" *ngFor="let entry of record.entries">
+			<app-image-entry *ngIf="entry.modality == 'foodImg' || entry.modality == 'barcodeImg'" [url]=entry.entry></app-image-entry>
+			<app-barcode-entry *ngIf="entry.modality == 'barcode'" [barcode]=entry.entry></app-barcode-entry>
+			<app-database-entry *ngIf="entry.modality == 'dbQuery'" [query]=entry.entry></app-database-entry>
+			<app-recipe-entry *ngIf="entry.modality == 'recipeURL'" [url]=entry.entry></app-recipe-entry>
+			<app-description-entry *ngIf="entry.modality == 'foodDsrp'" [description]=entry.entry></app-description-entry>
+			<app-voice-entry *ngIf="entry.modality == 'voice'" [description]=entry.entry></app-voice-entry>
+		</li>
+	</ul>
+	<div class="col-6">
+		<!--TODO: questionnaire would go here-->
+	</div>
+</div>
 <button type="submit" class="btn btn-primary" (click)="logOut()">Log Out</button>

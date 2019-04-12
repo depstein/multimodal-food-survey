@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  private db:AngularFirestore;
 	private allEntries: AngularFirestoreCollection<Object>;
   private missingEntries: AngularFirestoreCollection<Object>;
   private loggedIn:boolean;
+  private user:string;
 
-  constructor(db:AngularFirestore) {
-    this.db = db;
+  constructor(private db:AngularFirestore, private storage:AngularFireStorage) {
   }
 
   get isLoggedIn():boolean {
@@ -28,6 +28,7 @@ export class FirebaseService {
       this.allEntries.get().subscribe((contents) => {
         if(!contents.empty) {
           this.loggedIn = true;
+          this.user = user;
         } else {
           //Login failed. Clear everything
           this.logOut();
@@ -40,6 +41,7 @@ export class FirebaseService {
   logOut() {
     this.loggedIn = false;
     this.allEntries = undefined;
+    this.user = undefined;
   }
 
   get AllRecords():Observable<Object> {
@@ -56,5 +58,10 @@ export class FirebaseService {
     } else {
       return this.missingEntries.valueChanges();
     }
+  }
+
+  getImage(path:string):Observable<string | null> {
+    let ref = this.storage.ref(this.user + '/' + path);
+    return ref.getDownloadURL();
   }
 }
