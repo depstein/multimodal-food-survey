@@ -1,4 +1,18 @@
 <p>
   Welcome, {{userService.user}}!
 </p>
+<ul>
+	<li *ngFor="let record of records | async">
+		<p>
+			{{record.date.toDate()}}
+			{{record.platform}}
+		</p>
+		<ul>
+			<li *ngFor="let entry of record.entries">
+				{{entry.entry}}
+				{{entry.modality}}
+			</li>
+		</ul>
+	</li>
+</ul>
 <button type="submit" class="btn btn-primary" (click)="logOut()">Log Out</button>
