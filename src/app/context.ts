@@ -2,6 +2,7 @@ export class Context {
 	eatWith:string;
 	place:string
 	meal:string;
+	time:string;
 	modality:string;
 	situation:string;
 

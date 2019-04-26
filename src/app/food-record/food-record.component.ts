@@ -18,6 +18,7 @@ export class FoodRecordComponent implements OnInit {
 	situationValid:string;
 	modalityValid:string;
 	mealValid:string;
+  timeValid:string;
 	eatWithValid:string;
 	placeValid:string;
 	static readonly PLATFORM_MAP = {'web': 'the website', 'Alexa': 'Alexa', 'Google Home': 'Google Home', 'iPhone': 'the app', 'android': 'the app', 'watch': 'the watch'};
@@ -65,6 +66,12 @@ export class FoodRecordComponent implements OnInit {
   		this.mealValid = 'is-invalid';
   		completed = false;
   	}
+    if(this.context.time) {
+      this.timeValid = 'is-valid';
+    } else {
+      this.timeValid = 'is-invalid';
+      completed = false;
+    }
   	if(this.context.eatWith) {
   		this.eatWithValid = 'is-valid';
   	} else {

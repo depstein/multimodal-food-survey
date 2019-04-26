@@ -89,6 +89,34 @@
 			</label>
 		</div>
 	</div>
+	<strong>I journaled...</strong>
+	<div class="form-group">
+		<div class="form-check">
+			<label class="form-check-label" [ngClass]='timeValid'>
+				<input type="radio" class="form-check-input" name="time" [(ngModel)]=context.time (click)="pickTime(false)" value="long_before">More than 10 minutes before I ate
+			</label>
+		</div>
+		<div class="form-check">
+			<label class="form-check-label" [ngClass]='timeValid'>
+				<input type="radio" class="form-check-input" name="time" [(ngModel)]=context.time (click)="pickTime(false)" value="before">Less than 10 minutes before I ate
+			</label>
+		</div>
+		<div class="form-check">
+			<label class="form-check-label" [ngClass]='timeValid'>
+				<input type="radio" class="form-check-input" name="time" [(ngModel)]=context.time (click)="pickTime(false)" value="during">While I was eating
+			</label>
+		</div>
+		<div class="form-check">
+			<label class="form-check-label" [ngClass]='timeValid'>
+				<input type="radio" class="form-check-input" name="time" [(ngModel)]=context.time (click)="pickTime(false)" value="after">Less than 10 minutes after I ate
+			</label>
+		</div>
+		<div class="form-check">
+			<label class="form-check-label" [ngClass]='timeValid'>
+				<input type="radio" class="form-check-input" name="time" [(ngModel)]=context.time (click)="pickTime(false)" value="long_after">More than 10 minutes after I ate
+			</label>
+		</div>
+	</div>
 	<strong>Write anything else which would help us understand your eating situation.</strong>
 	<div class="form-group">
 		<textarea class="form-control" name="situation" rows="2" [ngClass]='situationValid' [(ngModel)]=context.situation></textarea>
